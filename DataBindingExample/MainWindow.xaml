@@ -22,14 +22,14 @@
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Nombre:" HorizontalAlignment="Right"  />
 
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="2"
-                         x:Name="nombreTextBox"  Width="128" />
+                <TextBox Grid.Row="0" Grid.Column="1" 
+                         x:Name="nombreTextBox"  Text="{Binding Title}" />
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Fecha:" HorizontalAlignment="Right"
                        />
 
                 <DatePicker Grid.Row="1" Grid.Column="1" Margin="2"
-                            x:Name="fechaDatePicker" />
+                            x:Name="fechaDatePicker" SelectedDate="{Binding Date}" />
 
             </Grid>
 

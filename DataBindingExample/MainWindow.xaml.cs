@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.ComponentModel;
 namespace DataBindingExample
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
 
-    class EventModel
+    class EventModel : INotifyPropertyChanged
     {
         private string title;
         private DateTime date;
@@ -32,7 +32,7 @@ namespace DataBindingExample
                 if (value != title)
                 {
                     title = value;
-
+                    OnPropertyChanged("Title");
                 }
             }
 
@@ -46,7 +46,17 @@ namespace DataBindingExample
                 if (value != date)
                 {
                     date = value;
+                    OnPropertyChanged("Date");
                 }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -62,16 +72,17 @@ namespace DataBindingExample
                 Title = "reunion de trabajo",
                 Date = new DateTime(2020, 10, 23)
             };
-            nombreTextBox.Text = evento.Title;
-            fechaDatePicker.SelectedDate = evento.Date;
+            //nombreTextBox.Text = evento.Title;
+            //fechaDatePicker.SelectedDate = evento.Date;
+            DataContext = evento;
         }
 
         private void ModificarEventoButton_Click(object sender, RoutedEventArgs e)
         {
             evento.Title = evento.Title.ToLower();
             evento.Date = evento.Date.AddDays(1);
-            nombreTextBox.Text = evento.Title;
-            fechaDatePicker.SelectedDate = evento.Date;
+            //nombreTextBox.Text = evento.Title;
+            //fechaDatePicker.SelectedDate = evento.Date;
             MessageBox.Show(evento.Title + "\n" + evento.Date);
         }
     }
